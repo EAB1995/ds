@@ -1,6 +1,11 @@
 from random import *
 from ds_classes_nov_2021 import *
+from sys import stdout
 
+def prt_txt(text):
+    for i in text:
+        print(f'{i}', end='', flush=True)
+        sleep(0.05)
    
 def end_seq(ending):
     #Add check to automatically reload weapons 30/11
@@ -47,7 +52,11 @@ def Choose_Player_Ranged(Lead_1 , Follow_1 , target , acted, modifier, ending) :
     #print("\nTRIGGERED ------ Choose_Player_Ranged")
     #////////////////
     if len(acted) == 0 :
-        acting = input(f"\n\nCHOOSE CREW MEMBER TO TAKE THEIR TURN:\nA: {Lead_1.name.upper()}\nB: {Follow_1.name.upper()}\n--[").upper()
+        prt_txt(f"\n\nCHOOSE CREW MEMBER TO TAKE THEIR TURN:\nA: {Lead_1.name.upper()}\nB: {Follow_1.name.upper()}\n")
+        acting = input("--[").upper()
+        #TEST\\\\\\\\\\\\\\\
+        print("\t\t\t\tTEST acting -", acting)
+        #TEST///////////////
         if acting == "A" :
             acting = Lead_1
             Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
@@ -63,19 +72,29 @@ def Choose_Player_Ranged(Lead_1 , Follow_1 , target , acted, modifier, ending) :
             acting = Lead_1
             print(f"\n{acting.name.upper()}'S TURN\n")
             Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
+        #TEST\\\\\\\\\\\\\\\
+        print("\t\t\t\tTEST acting -", acting.name)
+        #TEST///////////////
     else :
         Play_Turn(Lead_1 , Follow_1 , target, False, modifier, ending)
 
 def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending) :
-    a1 = input(f"\n///{acting.name.upper()}///\nCHOOSE AN ACTION:\nA: SHOOT\nF: FLANK\nX: CHARGE\nC: TAKE COVER\nR: RELOAD \nD: DEPLOY DRONE [BUGGY] \nI: USE ITEM [UNFINISHED]\nT: TRADE\n{acting.show_inventory()}\n--[").upper()
+    #TEST\\\\\\\\\\\\\\\
+    print("\t\t\t\tTEST acting -", acting.name)
+    #TEST///////////////
+    prt_txt(f"\n///{acting.name.upper()}///\nCHOOSE AN ACTION:\nA: SHOOT\nF: FLANK\nX: CHARGE\nC: TAKE COVER\nR: RELOAD \nD: DEPLOY DRONE [BUGGY] \nI: USE ITEM [UNFINISHED]\nT: TRADE\n{acting.show_inventory()}\n")
+    a1 = input("--[").upper()
     if a1 == "A" :
         acting.show_inventory()
         slot_choice = input("CHOICE [ENTER 1 / 2 / 3 / 4]: ")
         slot_choice = int(slot_choice)
         acting.weapon_choice = acting.inventory.get(slot_choice)
         shots = acting.weapon_choice.rate_of_fire_1
+        #TEST\\\\\\\\\\\\\
+        print("\t\t\t\tacting.weapon_choice - ", acting.weapon_choice.name, acting.weapon_choice.ammo)
+        #TEST//////////////
         if acting.weapon_choice.ammo < 1 :
-            print("CLICK CLICK CLICK... YOU'RE OUT OF AMMO! CHOOSE ANOTHER WEAPON, OR RELOAD\n")
+            print("\nCLICK CLICK CLICK... YOU'RE OUT OF AMMO! CHOOSE ANOTHER WEAPON, OR RELOAD\n")
             Choose_Action_Ranged(Lead_1 , Follow_1 , target, acted , acting, modifier, ending)
         if type(acting.weapon_choice.rate_of_fire_2) == int :
             a1 = input("CHOOSE RATE OF FIRE:\nA: {rof_1}\nB: {rof_2}\n--[".format(rof_1 = acting.weapon_choice.rate_of_fire_1 , rof_2 = acting.weapon_choice.rate_of_fire_2)).upper()
@@ -244,7 +263,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
             Lead_1.action = ["missfire"]
         elif "fault" in Lead_1.action:
             print(f"{Lead_1.name.upper()}'S WEAPON MALFUNCTIONS! {Lead_1.name.upper()} DISCARDS THEIR WEAPON...\n")
-            #MB - must be ammended to remove the weapon carried over from previous function 
+            #NB - must be ammended to remove the weapon carried over from previous function 
             Lead_1.remove_inventory(rocket_launcher)
             Lead_1.action = ["fault"]
         elif "flank" in Lead_1.action :

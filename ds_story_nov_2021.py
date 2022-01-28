@@ -18,7 +18,7 @@ def intro_1():
         print(line)
         sleep(0.2)                                                            
     sleep(1)
-    print("""                                                            
+    prt_txt("""                                                            
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 After weeks of being confined to the detention block, you finally break free of your cell.
 
@@ -29,21 +29,21 @@ Beside a slaughtered guard, a weapon locker has been smashed open. You load up o
 
     """)
     sleep(5)
-    print("LOCKER:\n[1] SLUG PISTOL\n[2] RAY GUN")
+    prt_txt("LOCKER:\n[1] SLUG PISTOL\n[2] RAY GUN")
  
-    print("\nWHO WILL TAKE THE SLUG PISTOL?\n[1] LT. ABBOTT\n[2] LT. MILLER")
+    prt_txt("\nWHO WILL TAKE THE SLUG PISTOL?\n[1] LT. ABBOTT\n[2] LT. MILLER")
  
     a1 = input("--[")
     if a1 == "1":
         abbot.add_inventory(slug_pistol)
-        print("\nLT MILLER TAKES THE RAY GUN.")
+        prt_txt("\nLT MILLER TAKES THE RAY GUN.")
         miller.add_inventory(ray_gun)
     elif a1 == "2":
         miller.add_inventory(slug_pistol)
-        print("\nLT ABBOT TAKES THE RAY GUN.")
+        prt_txt("\nLT ABBOT TAKES THE RAY GUN.")
         abbot.add_inventory(ray_gun)
    
-    print("""
+    prt_txt("""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 You hear footsteps approaching; there is no time to lose. 
 You must find your ship at all costs. You steel yourselves before slipping away into the gloom...
@@ -61,9 +61,9 @@ def seq_1(player_1, player_2):
         Follow_1 = player_1
         Lead_1 = player_2
     
-    print(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
+    prt_txt(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
    
-    print(
+    prt_txt(
         """
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
 You enter a room lined with magnetically sealed deposit boxes, filled with contraband
@@ -79,38 +79,38 @@ CHOOSE:
     
     if a1 == "1":
        
-        print("You continue your journey into the depths of the station - time is of the essence!")
+        prt_txt("You continue your journey into the depths of the station - time is of the essence!")
     elif a1 == "2":
      
-        print("""
+        prt_txt("""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
 The boxes appear to be secured with security shock-nodes...
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         """)
       
-        print("\nYOUR CHARACTER WILL NEED TO SCORE A W ON AN ATTRIBUTE TEST TO SUCCESSFULLY HACK THE BOXES")
+        prt_txt("\nYOUR CHARACTER WILL NEED TO SCORE A W ON AN ATTRIBUTE TEST TO SUCCESSFULLY HACK THE BOXES")
       
-        print("\nLT. ABBOT'S CHANCE OF SUCCESS:")
+        prt_txt("\nLT. ABBOT'S CHANCE OF SUCCESS:")
         count = 0
         #TEST\\\\\\\\\\\\\\\\\\
-        #print(abbot.character_die_lst, miller.character_die_lst)
+        #prt_txt(abbot.character_die_lst, miller.character_die_lst)
         #TEST//////////////////
         for i in abbot.character_die_lst:
             if "W" in i:
                 count += 1
         percent = (round((count / 6) * 100, 0))
-        print(f"{str(percent)}%")
-        print("\nLT. MILLER'S CHANCE OF SUCCESS:")
+        prt_txt(f"{str(percent)}%")
+        prt_txt("\nLT. MILLER'S CHANCE OF SUCCESS:")
         count = 0
         for i in miller.character_die_lst:
             if "W" in i:
                 count += 1
         percent = (round((count / 6) * 100, 0)) 
-        print(f"{str(percent)}%")
+        prt_txt(f"{str(percent)}%")
         a2 = str(input("\nARE YOU SURE YOU WANT TO CONTINUE? Y/N\n--[")).upper()
         if a2 == "N" :
            
-            print("""
+            prt_txt("""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 You continue your journey into the depths of the station - time is of the essence!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
@@ -133,9 +133,9 @@ def seq_2(player_1, player_2):
     elif a1 == "B":
         Follow_1 = player_1
         Lead_1 = player_2
-    print(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
+    prt_txt(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
     
-    print(f"""
+    prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 You pass a room where an engineer is repairing droids.
 She is so absorbed in the work that you spot an opportunity to steal from her...
@@ -149,35 +149,35 @@ CHOOSE:
     a1 = input("--[")
     if a1 == "1":
         
-        print("""
+        prt_txt("""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 You continue your journey into the depths of the station - time is of the essence!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         """)
     elif a1 == "2":
         
-        print("\nYOUR CHARACTER WILL NEED TO SHOW CUNNING ON AN ATTRIBUTE TEST TO SUCCESSFULLY HACK THE BOXES")
-        print("\nLT. ABBOT'S CHANCE OF SUCCESS:")
+        prt_txt("\nYOUR CHARACTER WILL NEED TO SHOW CUNNING ON AN ATTRIBUTE TEST TO SUCCESSFULLY HACK THE BOXES")
+        prt_txt("\nLT. ABBOT'S CHANCE OF SUCCESS:")
         count = 0
         #TEST\\\\\\\\\\\\\\\\
-        #print(abbot.character_die_lst, miller.character_die_lst)
+        #prt_txt(abbot.character_die_lst, miller.character_die_lst)
         #////////////////////
         for i in abbot.character_die_lst:
             if "C" in i:
                 count += 1
         percent = (round((count / 6) * 100, 0))
-        print(f"{str(percent)}%")
-        print("\nLT. MILLER'S CHANCE OF SUCCESS:")
+        prt_txt(f"{str(percent)}%")
+        prt_txt("\nLT. MILLER'S CHANCE OF SUCCESS:")
         count = 0
         for i in miller.character_die_lst:
             if "C" in i:
                 count += 1
         percent = (round((count / 6) * 100, 0)) 
-        print(f"{str(percent)}%")
+        prt_txt(f"{str(percent)}%")
         a2 = str(input("\nARE YOU SURE YOU WANT TO CONTINUE? Y/N\n--[")).upper()
         if a2 == "N" :
            
-            print("""
+            prt_txt("""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 You continue your journey into the depths of the station - time is of the essence!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
@@ -200,8 +200,8 @@ def seq_3(player_1, player_2):
     elif a1 == "B":
         Follow_1 = player_1
         Lead_1 = player_2
-    print(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
-    print(f"""
+    prt_txt(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
+    prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 As the doors ahead hiss open, slimy tentacles fly out and seize {Lead_1.name},
 dragging them into the darkness beyond...
@@ -222,10 +222,10 @@ def seq_4(player_1, player_2):
     elif a1 == "B":
         Follow_1 = player_1
         Lead_1 = player_2
-    print(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
+    prt_txt(f"{Lead_1.name.upper()} LEADS THE GROUP INTO THE DARKNESS...\n")
     lead_chance = [chance_calculator(Lead_1, "C"), chance_calculator(Lead_1, "W")]
     follow_chance = [chance_calculator(Follow_1, "C"), chance_calculator(Lead_1, "W")]
-    print(f"""
+    prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 The way forward is blocked by an ever-shifting
 lasergrid - a perplexing pattern of buzzing, burning beams...
@@ -256,7 +256,7 @@ WISDOM:  {follow_chance[1]}
 
 def seq_5(player_1, player_2):
     Lead_1, Follow_1 = intermission(player_1, player_2)
-    print(f"""\n
+    prt_txt(f"""\n
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 The battle-broken limbs of a cyborg guard hiss and whine as it falters towards you,
 a singular directive still coursing through its fried circuits; "SURRENDER. OR. DIE."
@@ -271,11 +271,11 @@ CHOOSE:
     if a1 == "1":
         Choose_Player_Ranged(Lead_1, Follow_1, cyborg, [], None, "seq_5")
     elif a1 == "2":
-        print(f"AS YOU SCRAMBLE TO DOUBLE BACK, THE CYBORG UNLEASHES A VOLLEY OF LASER-FIRE AT {Lead_1.name}")
+        prt_txt(f"AS YOU SCRAMBLE TO DOUBLE BACK, THE CYBORG UNLEASHES A VOLLEY OF LASER-FIRE AT {Lead_1.name}")
 
 def seq_6(player_1, player_2):
     Lead_1, Follow_1 = intermission(player_1, player_2)
-    print(f"""
+    prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 As you enter a disused hangar, you notice a two lizardmen carrying out a brutal
 interrogation on a pleading hostage. You won't be able to make it through without
@@ -289,10 +289,10 @@ CHOOSE:
     """)
     a1 = input("\n--[")
     if a1 == "1":
-        print("\nGIVE 'EM HELL!")
+        prt_txt("\nGIVE 'EM HELL!")
         Choose_Player_Ranged(Lead_1, Follow_1, lizardmen, [], None, seq_6)
     elif a1 == "2":
-        print(f"""
+        prt_txt(f"""
 NOMINATE A CREW MEMBER TO TRY AND INTIMIDATE THE LIZARDMEN:
 
 [1] {Lead_1.name.upper()}'S CHANCE OF SUCCESS: {chance_calculator(Lead_1, "W")}
@@ -305,56 +305,56 @@ NOMINATE A CREW MEMBER TO TRY AND INTIMIDATE THE LIZARDMEN:
             result = story_character_roll(Follow_1, "W", 1)
         if result == "success":
             item = loot_gen(1)
-            print("\nTHE LIZARDMEN BACK OFF, OFFERING YOU AN ITEM TO APPEASE YOUR THREAT")
-            print(f"--[SALVAGE:\n-{item.name.upper()}")
-            print(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
-            print(f"--[ABBOT [1]\n--[MILLER [2]")
+            prt_txt("\nTHE LIZARDMEN BACK OFF, OFFERING YOU AN ITEM TO APPEASE YOUR THREAT")
+            prt_txt(f"--[SALVAGE:\n-{item.name.upper()}")
+            prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
+            prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
             a1 = input("--[")
             if a1 == "1" :
                 abbot.add_inventory(item)
             elif a1 == "2" :
                 miller.add_inventory(item)
         elif result == "fail":
-            print(f"""
+            prt_txt(f"""
 THE LIZARDMEN LAUGH IN YOUR FACE AS THEY DRAW THEIR WEAPONS AND OPEN FIRE ON THE CREW!
             """)
             lizardmen_roll = randint(1, 6)
             if lizardmen_roll in range(1, 4):
-                print(f"\n{Lead_1.name.upper()} IS HIT!")
+                prt_txt(f"\n{Lead_1.name.upper()} IS HIT!")
                 Lead_1.HP -= 2
             else:
-                print("\nTHE CREW DIVE INTO COVER JUST IN TIME TO AVOID THE INCOMING FIRE!")
+                prt_txt("\nTHE CREW DIVE INTO COVER JUST IN TIME TO AVOID THE INCOMING FIRE!")
             Choose_Player_Ranged(Lead_1, Follow_1, lizardmen, [], None, "seq_6")
 
 def seq_7(player_1, player_2):
     Lead_1, Follow_1 = intermission(player_1, player_2)
-    print(f"""
+    prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 The crew move on into the next hangar, hoping to find a ship to 
 escape from the station. Unfortunately, they all appear to be in a state of disrepair,
 or stripped of vital components, presumably by scavangers.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     """)
-    print(f"\nAS {Lead_1.name.upper()} ENTERS ONE OF THE DOCKED SHIPS TO INSPECT IT, A SCREECHING ALIEN POUNCES FROM THE DARKNESS,\nIT'S HOOKED LIMBS PULLING {Lead_1.name.upper()} TOWARDS IT's GAPING MAW...")
+    prt_txt(f"\nAS {Lead_1.name.upper()} ENTERS ONE OF THE DOCKED SHIPS TO INSPECT IT, A SCREECHING ALIEN POUNCES FROM THE DARKNESS,\nIT'S HOOKED LIMBS PULLING {Lead_1.name.upper()} TOWARDS IT's GAPING MAW...")
     result = story_character_roll(Lead_1, "C", 1)
     if result == "success":
-        print(f"{Lead_1.name.upper()} STARTLES THE ALIEN WITH A BURST OF LIGHT FROM HIS VISOR-MOUNTED FLASHLIGHT BEFORE DIVING INTO COVER!")
+        prt_txt(f"{Lead_1.name.upper()} STARTLES THE ALIEN WITH A BURST OF LIGHT FROM HIS VISOR-MOUNTED FLASHLIGHT BEFORE DIVING INTO COVER!")
     elif result == "fail":
-        print(f"{Lead_1.name.upper()} SCREAMS AS THE ALIEN TEARS INTO HIS SUIT WITH IT'S RAZOR SHARP MANDIBLES!")
+        prt_txt(f"{Lead_1.name.upper()} SCREAMS AS THE ALIEN TEARS INTO HIS SUIT WITH IT'S RAZOR SHARP MANDIBLES!")
         Lead_1.HP -= 2
-    print("CHOOSE:\n[1] ATTACK\n[2] FLEE")
+    prt_txt("CHOOSE:\n[1] ATTACK\n[2] FLEE")
     a1 = input("\n--[")
     if a1 == "1":
-        print(f"THE CREW PILE IN TO SAVE {Lead_1.name.upper()}!")
+        prt_txt(f"THE CREW PILE IN TO SAVE {Lead_1.name.upper()}!")
         Choose_Player_Melee(Lead_1, Follow_1, alien, [], None, seq_7)
     elif a1 == "2":
-        print(f"{Lead_1.name.upper()} MANAGES TO ESCAPE THE CLUTCHES OF THE ALIEN,\nBUT NOT BEFORE IT SKEWERS HIS ARM WITH ONE OF IT'S RAZOR-SHARP LIMBS!")
+        prt_txt(f"{Lead_1.name.upper()} MANAGES TO ESCAPE THE CLUTCHES OF THE ALIEN,\nBUT NOT BEFORE IT SKEWERS HIS ARM WITH ONE OF IT'S RAZOR-SHARP LIMBS!")
         Lead_1.HP -= 1
-        print("\nTHE CREW FLEE THE HANGAR IN A PANIC!")
+        prt_txt("\nTHE CREW FLEE THE HANGAR IN A PANIC!")
 
 def seq_8(player_1, player_2):
     Lead_1, Follow_1 = intermission(player_1, player_2)
-    print(f"""
+    prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 After abandonning the search for a workable ship in the hangar bays, 
 the crew decide to make for the escape pods and try their luck on the planet below.
@@ -371,7 +371,7 @@ HEAVY FOOTSTEPS ARE HEARD AS A LUMBERING MUTANT ENTERS THE CHAMBER TO CONFRONT T
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 def intermission(player_1, player_2):
-    print(f"CHOOSE A PLAYER TO LEAD THE GROUP TO THE NEXT AREA\n\n[1] {player_1.name.upper()}\n[2] {player_2.name.upper()}")
+    prt_txt(f"CHOOSE A PLAYER TO LEAD THE GROUP TO THE NEXT AREA\n\n[1] {player_1.name.upper()}\n[2] {player_2.name.upper()}")
     a1 = input("--[")
     if a1 == "1":
         Lead_1 = player_1
@@ -386,7 +386,7 @@ def story_character_roll(character, target, attempts):
     rolls = []
     for roll in range(0, attempts):
         #TEST\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        print("TEST ATTEMPT>>> ", roll)
+        prt_txt("TEST ATTEMPT>>> ", roll)
         #///////////////////////////////
         rolls.append(character.character_die())
     for result in rolls:
@@ -395,7 +395,7 @@ def story_character_roll(character, target, attempts):
                 success_rolls += 1
                 break
     #TEST\\\\\\\\\\\\\
-    print("story_character_roll results success_rolls, rolls>>>>>", success_rolls, rolls)
+    prt_txt("story_character_roll results success_rolls, rolls>>>>>", success_rolls, rolls)
     #/////////////////
     if success_rolls > 0:
         return "success"
@@ -409,10 +409,10 @@ def story_character_roll_2(character, aim, tries):
         roll = character.character_die()
         for letter in roll:
             if letter == aim:
-                print("WIN")
+                prt_txt("WIN")
             else:
                 tries -= 1
-    print("FAIL")
+    prt_txt("FAIL")
 
 def chance_calculator(character, aim):
     success_rolls = 0
@@ -428,11 +428,11 @@ def chance_calculator(character, aim):
 def seq_1_hack(acting):
     character_roll = [acting.character_die()]
     #TEST \\\\\\\\\\\\\\
-    #print(character_roll)
+    #prt_txt(character_roll)
     #////////////////////
     W_count = 0
     #TEST\\\\\\
-    #print(W_count)
+    #prt_txt(W_count)
     #//////////
     for roll in character_roll:
         for letter in roll:
@@ -441,7 +441,7 @@ def seq_1_hack(acting):
     if W_count == 1:
         items = loot_gen(1)
         taker = None
-        print(f"""
+        prt_txt(f"""
 {acting.name} has opened the safe! 
 You peer in and see what you can salvage...
 
@@ -453,8 +453,8 @@ You peer in and see what you can salvage...
         """)
         while len(items) > 0:
             for item in items:
-                print(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
-                print(f"--[ABBOT [1]\n--[MILLER [2]")
+                prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
+                prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
                 a1 = input("--[")
                 if a1 == "1" :
                     abbot.add_inventory(item)
@@ -462,7 +462,7 @@ You peer in and see what you can salvage...
                 elif a1 == "2" :
                     miller.add_inventory(item)
                     items.remove(item)
-        print("""
+        prt_txt("""
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 After gathering your items, you proceed into the depths of the station...
@@ -473,7 +473,7 @@ After gathering your items, you proceed into the depths of the station...
     elif W_count == 2:
         items = loot_gen(2)
         taker = None
-        print(f"""
+        prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
 {acting.name} finds more than one box with the same unlock sequence!
 You prise open several boxes to see what's inside...
@@ -487,17 +487,17 @@ You prise open several boxes to see what's inside...
         """)
         while len(items) > 0:
             for item in items:
-                print(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
-                print(f"--[ABBOT [1]\n--[MILLER [2]")
+                prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
+                prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
                 a1 = input("--[")
                 if a1 == "1" :
                     abbot.add_inventory(item)
                     items.remove(item)
-                    print(items)
+                    prt_txt(items)
                 elif a1 == "2" :
                     miller.add_inventory(item)
                     items.remove(item)
-        print("""
+        prt_txt("""
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 After gathering your items, you proceed into the depths of the station...
@@ -506,29 +506,29 @@ After gathering your items, you proceed into the depths of the station...
         """)
     elif W_count == 0:
         acting.HP - 2
-        print(f"\n{acting.name.upper()} FAILS TO BYPASS THE BOX'S SECURITY AND RECIEVES A LESS_THAN_LETHAL ELECTRIC SHOCK, LOSING 2 HP")
+        prt_txt(f"\n{acting.name.upper()} FAILS TO BYPASS THE BOX'S SECURITY AND RECIEVES A LESS_THAN_LETHAL ELECTRIC SHOCK, LOSING 2 HP")
 
         
 def seq_2_steal(acting):
     character_roll = [acting.character_die()]
     #TEST \\\\\\\\\\\\\\
-    #print(character_roll)
+    #prt_txt(character_roll)
     #////////////////////
     C_count = 0
     #TEST\\\\\\
-    #print(W_count)
+    #prt_txt(W_count)
     #//////////
     for roll in character_roll:
         for letter in roll:
             if letter == "C":
                 C_count += 1
     #TEST\\\\\\\\\\\\\
-    print(C_count)
+    prt_txt(C_count)
     #/////////////////
     if C_count > 0:
         items = loot_gen(2)
         taker = None
-        print(f"""
+        prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
 {acting.name} deftly crawls amongst the disused workbenches, and avoids attracting the engineer's attention.
 Some likely salvage catches their eye and they quickly retrieve it before returning to their party. 
@@ -542,8 +542,8 @@ Some likely salvage catches their eye and they quickly retrieve it before return
         """)
         while len(items) > 0:
             for item in items:
-                print(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
-                print(f"--[ABBOT [1]\n--[MILLER [2]")
+                prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
+                prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
                 a1 = input("--[")
                 if a1 == "1" :
                     abbot.add_inventory(item)
@@ -551,7 +551,7 @@ Some likely salvage catches their eye and they quickly retrieve it before return
                 elif a1 == "2" :
                     miller.add_inventory(item)
                     items.remove(item)
-        print("""
+        prt_txt("""
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 After gathering your items, you proceed into the depths of the station...
@@ -559,7 +559,7 @@ After gathering your items, you proceed into the depths of the station...
 
         """)
     elif C_count == 0:
-        print(f"""
+        prt_txt(f"""
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 {acting.name} triggers an alarm as they step into the room where the engineer is working.
 As they engineer looks up, they quickly draw a holstered pistol and take aim...
@@ -575,22 +575,22 @@ def seq_4_lasergrid(Lead_1, Follow_1):
     #LEAD
     for value in lead_roll:
         if value == Lead_1.action:
-            print(f"{Lead_1.name.upper()} GETS THROUGH THE LASERGRID UNHARMED")
+            prt_txt(f"{Lead_1.name.upper()} GETS THROUGH THE LASERGRID UNHARMED")
             break
         else:
-            print(f"{Lead_1.name.upper()} TRIPS AND IS BURNT BY THE LASERGRID, LOSING 2 HP")
+            prt_txt(f"{Lead_1.name.upper()} TRIPS AND IS BURNT BY THE LASERGRID, LOSING 2 HP")
             Lead_1.HP -= 2
             break
     #FOLLOW
     for value in follow_roll:
         if value == Follow_1.action:
-            print(f"{Follow_1.name.upper()} GETS THROUGH THE LASERGRID UNHARMED")
+            prt_txt(f"{Follow_1.name.upper()} GETS THROUGH THE LASERGRID UNHARMED")
             break
         else:
-            print(f"{Follow_1.name.upper()} TRIPS AND IS BURNT BY THE LASERGRID, LOSING 2 HP")
+            prt_txt(f"{Follow_1.name.upper()} TRIPS AND IS BURNT BY THE LASERGRID, LOSING 2 HP")
             Follow_1.HP -= 2
             break
-    print("YOU MARCH OFF INTO THE DARKNESS...")
+    prt_txt("YOU MARCH OFF INTO THE DARKNESS...")
 
 
     
