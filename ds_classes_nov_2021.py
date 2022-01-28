@@ -196,6 +196,8 @@ class Trigger_Item:
 
 
 #////////////// RANGED WEAPON INSTANTIATION ////////////////
+slug_pistol_opener = Ranged_Weapon("Slug Pistol" , "ballistic" , 1 , 1 , 2 , "jam" , 1 , None , 2 , 1)
+ray_gun_opener = Ranged_Weapon("Ray Gun", "energy", 1, 1, None, "overheat", 1, None, 1, 1)
 slug_pistol = Ranged_Weapon("Slug Pistol" , "ballistic" , 1 , 1 , 2 , "jam" , 1 , None , 2 , 1)
 slug_pistol_1 = Ranged_Weapon("Slug Pistol" , "ballistic" , 1 , 1 , 2 , "jam" , 1 , None , 2 , 1)
 battle_rifle = Ranged_Weapon("Battle Rifle" , "ballistic" , 2 , 2 , 2 , "jam" , 1 , 2 , 4 , 2)

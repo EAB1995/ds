@@ -23,13 +23,4 @@ seq_7(player_1, player_2)
 
 seq_8(player_1, player_2)
 
-#NOTES
 
-#TO BE ADDED - 
-#Player death when no HP
-
-#BUGS 
-#Check that items in the items roster cannot be assigned twice - starting weapons should
-#be duplicated / registered separately 
-#Weapons shooting on empty not triggering reload prompt 
-#Scripting loop issue after engineer is killed
