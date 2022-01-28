@@ -4,9 +4,12 @@ from sys import stdout
 
 def prt_txt(text):
     for i in text:
-        print(f'{i}', end='', flush=True)
-        sleep(0.05)
-   
+        if i is "/":
+            print(f'{i}', end='', flush=True)
+        else:
+            print(f'{i}', end='', flush=True)
+            sleep(0.05)
+    
 def end_seq(ending):
     #Add check to automatically reload weapons 30/11
     if ending == "generic":

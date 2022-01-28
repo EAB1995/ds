@@ -193,7 +193,7 @@ You continue your journey into the depths of the station - time is of the essenc
                 seq_2_steal(miller)
             
 def seq_3(player_1, player_2):
-    a1 = input(f"CHOOSE A PLAYER TO LEAD\nA: {player_1.name.upper()}\nB: {player_2.name.upper()}\n--[").upper()
+    a1 = input(f"\nCHOOSE A PLAYER TO LEAD\nA: {player_1.name.upper()}\nB: {player_2.name.upper()}\n--[").upper()
     if a1 == "A":
         Lead_1 = player_1
         Follow_1 = player_2
