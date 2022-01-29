@@ -33,7 +33,7 @@ Beside a slaughtered guard, a weapon locker has been smashed open. You load up o
  
     prt_txt("\n\nWHO WILL TAKE THE SLUG PISTOL?\n[1] LT. ABBOTT\n[2] LT. MILLER")
  
-    a1 = take_in("1 / 2")
+    a1 = take_in(['1', '2'])
     if a1 == "1":
         abbot.add_inventory(slug_pistol_opener)
         prt_txt("\nLT MILLER TAKES THE RAY GUN.")
@@ -66,7 +66,7 @@ CHOOSE:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         """
     )
-    a1 = take_in("1 / 2")
+    a1 = take_in(['1', '2'])
     
     if a1 == "1":
        
@@ -99,7 +99,7 @@ The boxes appear to be secured with security shock-nodes...
         percent = (round((count / 6) * 100, 0)) 
         prt_txt(f" {str(percent)}%")
         prt_txt("\nARE YOU SURE YOU WANT TO CONTINUE? Y/N\n")
-        a2 = take_in("Y / N")
+        a2 = take_in(['Y', 'N'])
         if a2 == "N" :
            
             prt_txt("""
@@ -109,7 +109,7 @@ You continue your journey into the depths of the station - time is of the essenc
             """)
         if a2 == "Y":
             prt_txt("\nNOMINATE A CREWMEMBER TO ATTEMPT THE HACK:\n[1] LT. ABBOT\n[2] LT. MILLER\n")
-            a3 = take_in("1 / 2")
+            a3 = take_in(['1', '2'])
             if a3 == "1":
                 acting = abbot
                 seq_1_hack(abbot)
@@ -132,7 +132,7 @@ CHOOSE:
 [2] ATTEMPT TO STEAL
     """)
    
-    a1 = take_in("1 / 2")
+    a1 = take_in(['1', '2'])
     if a1 == "1":
         
         prt_txt("""
@@ -170,7 +170,7 @@ You continue your journey into the depths of the station - time is of the essenc
             """)
         if a2 == "Y":
             prt_txt("\nNOMINATE A CREWMEMBER TO ATTEMPT TO STEAL:\n[1] LT. ABBOT\n[2] LT. MILLER\n")
-            a3 = take_in("1 / 2")
+            a3 = take_in(['1', '2'])
             if a3 == "1":
                 acting = abbot
                 seq_2_steal(abbot)
@@ -246,7 +246,7 @@ CHOOSE:
 [1] ATTACK
 [2] EVADE
     """)
-    a1 = take_in("1 / 2")
+    a1 = take_in(['1', '2'])
     if a1 == "1":
         Choose_Player_Ranged(Lead_1, Follow_1, cyborg, [], None, "seq_5")
     elif a1 == "2":
@@ -266,7 +266,7 @@ CHOOSE:
 [1] ATTACK
 [2] INTIMIDATE
     """)
-    a1 = take_in("1 / 2")
+    a1 = take_in(['1', '2'])
     if a1 == "1":
         prt_txt("\nGIVE 'EM HELL!")
         Choose_Player_Ranged(Lead_1, Follow_1, lizardmen, [], None, seq_6)
@@ -277,7 +277,7 @@ NOMINATE A CREW MEMBER TO TRY AND INTIMIDATE THE LIZARDMEN:
 [1] {Lead_1.name.upper()}'S CHANCE OF SUCCESS: {chance_calculator(Lead_1, "W")}
 [2] {Follow_1.name.upper()}'S CHANCE OF SUCCESS: {chance_calculator(Follow_1, "W")}
         """)
-        a2 = take_in("1 / 2")
+        a2 = take_in(['1', '2'])
         if a2 == "1":
             result = story_character_roll(Lead_1, "W", 1)
         elif a2 == "2":
@@ -288,7 +288,7 @@ NOMINATE A CREW MEMBER TO TRY AND INTIMIDATE THE LIZARDMEN:
             prt_txt(f"--[SALVAGE:\n-{item.name.upper()}")
             prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
             prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
-            a1 = take_in(1 / 2)
+            a1 = take_in(['1', '2'])
             if a1 == "1" :
                 abbot.add_inventory(item)
             elif a1 == "2" :
@@ -322,7 +322,7 @@ or stripped of vital components, presumably by scavangers.
         prt_txt(f"{Lead_1.name.upper()} SCREAMS AS THE ALIEN TEARS INTO HIS SUIT WITH IT'S RAZOR SHARP MANDIBLES!")
         Lead_1.HP -= 2
     prt_txt("CHOOSE:\n[1] ATTACK\n[2] FLEE")
-    a1 = take_in("1 / 2")
+    a1 = take_in(['1', '2'])
     if a1 == "1":
         prt_txt(f"THE CREW PILE IN TO SAVE {Lead_1.name.upper()}!")
         Choose_Player_Melee(Lead_1, Follow_1, alien, [], None, seq_7)
@@ -351,7 +351,7 @@ HEAVY FOOTSTEPS ARE HEARD AS A LUMBERING MUTANT ENTERS THE CHAMBER TO CONFRONT T
 
 def intermission(player_1, player_2):
     prt_txt(f"CHOOSE A PLAYER TO LEAD THE GROUP TO THE NEXT AREA\n\n[1] {player_1.name.upper()}\n[2] {player_2.name.upper()}")
-    a1 = take_in("1 / 2")
+    a1 = take_in(['1', '2'])
     if a1 == "1":
         Lead_1 = player_1
         Follow_1 = player_2
@@ -434,7 +434,7 @@ You peer in and see what you can salvage...
             for item in items:
                 prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
                 prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
-                a1 = take_in("1 / 2")
+                a1 = take_in(['1', '2'])
                 if a1 == "1" :
                     abbot.add_inventory(item)
                     items.remove(item)
@@ -468,7 +468,7 @@ You prise open several boxes to see what's inside...
             for item in items:
                 prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
                 prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
-                a1 = take_in("1 / 2")
+                a1 = take_in(['1', '2'])
                 if a1 == "1" :
                     abbot.add_inventory(item)
                     items.remove(item)
@@ -523,7 +523,7 @@ Some likely salvage catches their eye and they quickly retrieve it before return
             for item in items:
                 prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
                 prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
-                a1 = take_in("1 / 2")
+                a1 = take_in(['1', '2'])
                 if a1 == "1" :
                     abbot.add_inventory(item)
                     items.remove(item)

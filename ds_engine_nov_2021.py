@@ -14,8 +14,8 @@ def take_in(accept):
     choice = str(input("\n\n--[").upper())
     if choice in accept:
         return choice
-    else:
-        prt_txt(f"INPUT NOT RECOGNISED.\nACCEPTED INPUTS: {accept.upper()}")
+    else:        
+        prt_txt(f"INPUT NOT RECOGNISED.\nACCEPTED INPUTS: {' / '.join(accept)}")
         take_in(accept)
 
 
@@ -66,7 +66,7 @@ def Choose_Player_Ranged(Lead_1 , Follow_1 , target , acted, modifier, ending) :
     #////////////////
     if len(acted) == 0 :
         prt_txt(f"\n\nCHOOSE CREW MEMBER TO TAKE THEIR TURN:\nA: {Lead_1.name.upper()}\nB: {Follow_1.name.upper()}\n")
-        acting = take_in("A / B")
+        acting = take_in(['A', 'B'])
         #TEST\\\\\\\\\\\\\\\
         print("\t\t\t\tTEST acting -", acting)
         #TEST///////////////
@@ -96,7 +96,7 @@ def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, 
     print("\t\t\t\tTEST acting -", acting.name)
     #TEST///////////////
     prt_txt(f"\n///{acting.name.upper()}///\nCHOOSE AN ACTION:\nA: SHOOT\nF: FLANK\nX: CHARGE\nC: TAKE COVER\nR: RELOAD \nD: DEPLOY DRONE [BUGGY] \nI: USE ITEM [UNFINISHED]\nT: TRADE\n{acting.show_inventory()}\n")
-    a1 = take_in("A / F / X / C / R / D / I / T")
+    a1 = take_in(['A', 'F', 'X', 'C', 'R', 'D', 'I', 'T'])
     if a1 == "A" :
         acting.show_inventory()
         slot_choice = input("CHOICE [ENTER 1 / 2 / 3 / 4]: ")
@@ -182,7 +182,7 @@ def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, 
         for x in weapon_lst.keys() :
             prt_txt(f"{x} : {weapon_lst.get(x).name} /// AMMO COUNT: {weapon_lst.get(x).ammo} /// MAX AMMO: {weapon_lst.get(x).max_ammo} ///")
         prt_txt("\nRELOAD - CHOOSE WEAPON")
-        a2 = take_in("1 / 2 / 3 / 4")
+        a2 = take_in(['1', '2', '3', '4'])
         reload_choice = weapon_lst.get(int(a2))
         reload_choice.ammo += reload_choice.max_ammo
         prt_txt(f"\n...RELOADING {reload_choice.name.upper()}...\n///{reload_choice.name.upper()} AMMO COUNT: {reload_choice.ammo}\n")
@@ -212,7 +212,7 @@ def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, 
 def Choose_Player_Melee(Lead_1 , Follow_1 , target , acted, modifier, ending) :
     if len(acted) == 0 :
         prt_txt(f"\nCHOOSE CREW MEMBER TO TAKE THEIR TURN:\nA: {Lead_1.name.upper()}\nB: {Follow_1.name.upper()}")
-        acting = take_in("A / B")
+        acting = take_in(['A' / 'B'])
         if acting == "A" :
             acting = Lead_1
             Choose_Action_Melee(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
@@ -359,7 +359,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                         pass
                     elif item.name == "Force Field":
                         prt_txt(f"{Lead_1.name.upper()} HAS A FORCEFIELD IN THEIR INVENTORY WHICH CAN BE USED TO NEGATE INCOMING DAMAGE. WOULD YOU LIKE TO USE IT NOW?\n\n[Y/N]\n")
-                        use_force_field = take_in("Y / N")
+                        use_force_field = take_in(['Y', 'N'])
                         if use_force_field == "Y":
                             Lead_1.HP += target.DMG_R
                         elif use_force_field == "N":
@@ -605,7 +605,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                         pass
                     elif item.name == "Force Field":
                         prt_txt(f"{Lead_1.name.upper()} HAS A FORCEFIELD IN THEIR INVENTORY WHICH CAN BE USED TO NEGATE INCOMING DAMAGE. WOULD YOU LIKE TO USE IT NOW?\n\n[Y/N]\n")
-                        use_force_field = take_in("Y / N")
+                        use_force_field = take_in(['Y', 'N'])
                         if use_force_field == "Y":
                             Lead_1.remove_inventory(force_field)
                             Lead_1.HP += target.DMG_M
@@ -626,7 +626,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                         pass
                     elif item.name == "Force Field":
                         prt_txt(f"{Follow_1.name.upper()} HAS A FORCEFIELD IN THEIR INVENTORY WHICH CAN BE USED TO NEGATE INCOMING DAMAGE. WOULD YOU LIKE TO USE IT NOW?\n\n[Y/N]\n")
-                        use_force_field = take_in("Y / N")
+                        use_force_field = take_in(['Y','N'])
                         if use_force_field == "Y":
                             Follow_1.remove_inventory(force_field)
                             Lead_1.HP += target.DMG_M
@@ -658,7 +658,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                         flanker = Follow_1
                     if flanker:
                         prt_txt(f"\n///AFTER DASHING TO COVER IN A SECURE VANTAGE POINT, {flanker.name.upper()} PREPARES TO ATTACK...///\nCHOOSE ACTION:\nA: SHOOT\nX: CHARGE\n")
-                        a1 = take_in("A / X")
+                        a1 = take_in(['A', 'X'])
                         if a1 == "A" :
                             flanker.show_inventory()
                             slot_choice = input("CHOICE [ENTER 1 / 2 / 3 / 4]: ")
@@ -678,7 +678,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                                 shots = flanker.weapon_choice.rate_of_fire_1
                             if type(flanker.weapon_choice.rate_of_fire_2) == int :
                                 prt_txt("CHOOSE RATE OF FIRE:\nA: {rof_1}\nB: {rof_2}\n--[".format(rof_1 = flanker.weapon_choice.rate_of_fire_1 , rof_2 = flanker.weapon_choice.rate_of_fire_2))
-                                a1 = take_in("A / B")
+                                a1 = take_in(['A', 'B'])
                                 if a1 == "A" :
                                     shots = flanker.weapon_choice.rate_of_fire_1
                                 elif a1 == "B" :
@@ -793,7 +793,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
         #/////// END OF TURN MODIFIER CHECK////////
         if modifier == "tentacles":
             prt_txt(f"CONTINUE FIGHTING {target.name.upper()}?\n[1] RUN\n[2] CONTINUE FIGHTING")
-            a1 = take_in("1 / 2")
+            a1 = take_in(['1', '2'])
             if a1 == "1":
                 prt_txt("THE CREW PULL THEMSELVES FREE FROM THE ABOMINATION, BUT LOSE 1HP IN THE PROCESS!")
                 Lead_1.HP -= 1
@@ -817,7 +817,7 @@ def Trade_In_Combat(trader, giver) :
 CHOOSE AN ITEM FROM {giver.name.upper()}'S INVENTORY TO GIVE TO {trader.name.upper()}
     """)
     prt_txt("[SLOT NO.]")
-    a1 = int(take_in("1 / 2 / 3 / 4"))
+    a1 = int(take_in(['1', '2', '3', '4']))
     for slot in giver.inventory.keys():
         if a1 == slot:
             trade_item = giver.inventory.get(slot)
@@ -825,7 +825,7 @@ CHOOSE AN ITEM FROM {giver.name.upper()}'S INVENTORY TO GIVE TO {trader.name.upp
             giver.remove_inventory(trade_item)
             if trade_item.type == "item" :
                 prt_txt(f"WOULD YOU LIKE TO USE {trade_item.name} NOW?\n[Y/N]")
-                a2 = take_in("Y / N")
+                a2 = take_in(['Y', 'N'])
                 if a2 == "Y" : 
                     trade_item.use(trader)
 
