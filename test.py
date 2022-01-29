@@ -2,9 +2,11 @@ from ds_story_nov_2021 import *
 from ds_engine_nov_2021 import *
 from ds_classes_nov_2021 import *
 
-abbot.add_inventory(slug_pistol)
-miller.add_inventory(ray_gun)
+def take_in(accept):
+    choice = input("--[").upper()
+    if choice in accept:
+        return
+    else:
+        prt_txt(f"INPUT NOT RECOGNISED.\nACCEPTED INPUTS: {accept.upper()}")
 
-abbot.show_inventory()
-
-Choose_Player_Ranged(abbot, miller, engineer, [], None, "seq_2")
+take_in("A / B")

@@ -1,5 +1,6 @@
 import random
 from time import *
+from ds_engine_nov_2021 import *
 from random import randint
 
 Players = ["Abbot" , "Miller"]
@@ -196,6 +197,8 @@ class Trigger_Item:
 
 
 #////////////// RANGED WEAPON INSTANTIATION ////////////////
+slug_pistol_opener = Ranged_Weapon("Slug Pistol" , "ballistic" , 1 , 1 , 2 , "jam" , 1 , None , 2 , 1)
+ray_gun_opener = Ranged_Weapon("Ray Gun", "energy", 1, 1, None, "overheat", 1, None, 1, 1)
 slug_pistol = Ranged_Weapon("Slug Pistol" , "ballistic" , 1 , 1 , 2 , "jam" , 1 , None , 2 , 1)
 slug_pistol_1 = Ranged_Weapon("Slug Pistol" , "ballistic" , 1 , 1 , 2 , "jam" , 1 , None , 2 , 1)
 battle_rifle = Ranged_Weapon("Battle Rifle" , "ballistic" , 2 , 2 , 2 , "jam" , 1 , 2 , 4 , 2)
@@ -257,7 +260,7 @@ def loot_target(Lead_1, Follow_1, target, number):
         for item in items:
             print(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
             print(f"--[{Lead_1.name.upper()} // INVENTORY SLOTS AVAILABLE: {Lead_1.remaining_inventory()} [1]\n--[{Follow_1.name.upper()} // INVENTORY SLOTS AVAILABLE: {Follow_1.remaining_inventory()} [2]\n--[DISCARD [3]")
-            a1 = input("--[")
+            a1 = take_in(['1', '2'])
             if a1 == "1" :
                 abbot.add_inventory(item)
                 items.remove(item)
