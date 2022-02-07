@@ -1,6 +1,8 @@
 from ds_classes_nov_2021 import *
 from ds_engine_nov_2021 import *
 from ds_story_nov_2021 import *
+from logging import *
+logger.setLevel(logging.WARNING)
 
 player_1 = abbot
 player_2 = miller

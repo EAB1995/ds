@@ -1,16 +1,21 @@
 from random import *
 from ds_classes_nov_2021 import *
-from sys import stdout
+from ds_logging import *
 
 def prt_txt(text):
     for i in text:
-        if i is "/":
-            print(f'{i}', end='', flush=True)
+        if logging.getLevelName(logger.level) == "WARNING":
+            if i is "/":
+                print(f'{i}', end='', flush=True)
+            else:
+                print(f'{i}', end='', flush=True)
+                sleep(0.05)
         else:
             print(f'{i}', end='', flush=True)
-            sleep(0.05)
+            
 
 def take_in(accept):
+    #Bug - else statement returns and then ends the script
     choice = str(input("\n\n--[").upper())
     if choice in accept:
         return choice
@@ -24,30 +29,30 @@ def end_seq(ending):
     if ending == "generic":
         prt_txt("END SEQ PLACEHOLDER")
     elif ending == "seq_3":
-        prt_txt(f"""
+        prt_txt(f"""\n\n
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Without looking back, the crew make for the nearest exit, 
 leaving the tentacled monstrosity thrashing in the darkness
 behind them...
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        """)
+        \n\n""")
     elif ending == "seq_5":
-        prt_txt(f"""
+        prt_txt(f"""\n\n
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 The Cyborg collapses in a heap of severed cables and 
 battered amour plates, choking on a black, tar-like fluid...
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        """)
+        \n\n""")
     elif ending == "seq_6":
-        prt_txt(f"""
+        prt_txt(f"""\n\n
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Pick your way across the hangar in the wake of the firefight, 
 you look around to try and find the captive that was being interrogated. 
 Alas, it seems that they used the confusion of the melee to escape...
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        """)
+        \n\n""")
     elif ending == "seq_8":
-        prt_txt(f"""
+        prt_txt(f"""\n\n
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 The mutant collapses in a heap, it's regenerative powers unable to heal
 the damage done by the sustained attacks from the crew. 
@@ -55,21 +60,17 @@ the damage done by the sustained attacks from the crew.
 After a bruising fight, they take a moment to collect themselves before 
 moving on...
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        """)
+        \n\n""")
 
 
 
 
 def Choose_Player_Ranged(Lead_1 , Follow_1 , target , acted, modifier, ending) :
-    #TEST\\\\\\\\\\\\
-    #print("\nTRIGGERED ------ Choose_Player_Ranged")
-    #////////////////
     if len(acted) == 0 :
         prt_txt(f"\n\nCHOOSE CREW MEMBER TO TAKE THEIR TURN:\nA: {Lead_1.name.upper()}\nB: {Follow_1.name.upper()}\n")
         acting = take_in(['A', 'B'])
-        #TEST\\\\\\\\\\\\\\\
-        print("\t\t\t\tTEST acting -", acting)
-        #TEST///////////////
+        #TEST\\\\\\\\\\\\\\\ TURN LOOP READOUT
+        logger.info(f"\nLead_1.name: {Lead_1.name}, \nFollow_1.name: {Follow_1.name}, \ntarget.name: {target.name}, \nacted: {acted}, \nmodifier: {modifier}, \nending: {ending}")
         if acting == "A" :
             acting = Lead_1
             Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
@@ -86,31 +87,30 @@ def Choose_Player_Ranged(Lead_1 , Follow_1 , target , acted, modifier, ending) :
             prt_txt(f"\n{acting.name.upper()}'S TURN\n")
             Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
         #TEST\\\\\\\\\\\\\\\
-        print("\t\t\t\tTEST acting -", acting.name)
-        #TEST///////////////
+        logger.info(f"\nacting.name: {acting.name}")
     else :
         Play_Turn(Lead_1 , Follow_1 , target, False, modifier, ending)
 
 def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending) :
     #TEST\\\\\\\\\\\\\\\
-    print("\t\t\t\tTEST acting -", acting.name)
-    #TEST///////////////
-    prt_txt(f"\n///{acting.name.upper()}///\nCHOOSE AN ACTION:\nA: SHOOT\nF: FLANK\nX: CHARGE\nC: TAKE COVER\nR: RELOAD \nD: DEPLOY DRONE [BUGGY] \nI: USE ITEM [UNFINISHED]\nT: TRADE\n{acting.show_inventory()}\n")
+    logger.info(f"acting.name: {acting.name}")
+    prt_txt(f"\n///{acting.name.upper()}///\nCHOOSE AN ACTION:\nA: SHOOT\nF: FLANK\nX: CHARGE\nC: TAKE COVER\nR: RELOAD \nD: DEPLOY DRONE [BUGGY] \nI: USE ITEM [UNFINISHED]\nT: TRADE\n")
     a1 = take_in(['A', 'F', 'X', 'C', 'R', 'D', 'I', 'T'])
     if a1 == "A" :
         acting.show_inventory()
-        slot_choice = input("CHOICE [ENTER 1 / 2 / 3 / 4]: ")
+        slot_choice = input("\n\nCHOICE [ENTER 1 / 2 / 3 / 4]: ")
         slot_choice = int(slot_choice)
         acting.weapon_choice = acting.inventory.get(slot_choice)
         shots = acting.weapon_choice.rate_of_fire_1
         #TEST\\\\\\\\\\\\\
         print("\t\t\t\tacting.weapon_choice - ", acting.weapon_choice.name, acting.weapon_choice.ammo)
+        logger.info(f"\nacting.weapon_choice.name: {acting.weapon_choice.name}\nacting.weapon_choice.ammo: {acting.weapon_choice.ammo}")
         #TEST//////////////
         if acting.weapon_choice.ammo < 1 :
             prt_txt("\nCLICK CLICK CLICK... YOU'RE OUT OF AMMO! CHOOSE ANOTHER WEAPON, OR RELOAD\n")
             Choose_Action_Ranged(Lead_1 , Follow_1 , target, acted , acting, modifier, ending)
         if type(acting.weapon_choice.rate_of_fire_2) == int :
-            a1 = input("CHOOSE RATE OF FIRE:\nA: {rof_1}\nB: {rof_2}\n--[".format(rof_1 = acting.weapon_choice.rate_of_fire_1 , rof_2 = acting.weapon_choice.rate_of_fire_2)).upper()
+            a1 = input("\nCHOOSE RATE OF FIRE:\nA: {rof_1}\nB: {rof_2}\n--[".format(rof_1 = acting.weapon_choice.rate_of_fire_1 , rof_2 = acting.weapon_choice.rate_of_fire_2)).upper()
             if a1 == "A" :
                 shots = acting.weapon_choice.rate_of_fire_1
             elif a1 == "B" :
@@ -166,11 +166,11 @@ def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, 
             acting.action.append("flank")
             Lead_1.flank[1], Follow_1.flank[1] = True, True 
     elif a1 == "X" :
-        charge_check = input("CHARGING THE ENEMY WILL IMMEDIATELY BEGIN CLOSE COMBAT - ARE YOU SURE YOU WANT TO CHARGE?\n\nY/N\n--[").upper()
+        charge_check = input("\nCHARGING THE ENEMY WILL IMMEDIATELY BEGIN CLOSE COMBAT - ARE YOU SURE YOU WANT TO CHARGE?\n\nY/N\n--[").upper()
         if charge_check == "N":
             Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
         else:
-            prt_txt(f"YOU CHARGE AT THE {target.name.upper()}!")
+            prt_txt(f"\nYOU CHARGE AT THE {target.name.upper()}!\n")
             Choose_Player_Melee(Lead_1 , Follow_1 , target , acted, modifier, ending)
     elif a1 == "R" :
         weapon_lst = {}
@@ -192,11 +192,11 @@ def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, 
         acting.action.append("cover")
     elif a1 == "D" :
         if Lead_1.drone or Follow_1.drone is True:
-            prt_txt("THE DRONE HAS ALREADY BEEN USED IN THIS ROUND...")
+            prt_txt("T\nHE DRONE HAS ALREADY BEEN USED IN THIS ROUND...")
             Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
         else:
             Lead_1.drone, Follow_1.drone = True, True
-            prt_txt(f"{acting.name.upper()} POWERS UP THEIR MEDICAL DRONE, HEALING 1HP OF DAMAGE.")
+            prt_txt(f"\n{acting.name.upper()} POWERS UP THEIR MEDICAL DRONE, HEALING 1HP OF DAMAGE.")
             acting.HP += 1
             acting.action.append("drone")
     elif a1 == "T" :
@@ -212,7 +212,7 @@ def Choose_Action_Ranged(Lead_1 , Follow_1 , target , acted , acting, modifier, 
 def Choose_Player_Melee(Lead_1 , Follow_1 , target , acted, modifier, ending) :
     if len(acted) == 0 :
         prt_txt(f"\nCHOOSE CREW MEMBER TO TAKE THEIR TURN:\nA: {Lead_1.name.upper()}\nB: {Follow_1.name.upper()}")
-        acting = take_in(['A' / 'B'])
+        acting = take_in(['A', 'B'])
         if acting == "A" :
             acting = Lead_1
             Choose_Action_Melee(Lead_1 , Follow_1 , target , acted , acting, modifier, ending)
@@ -233,7 +233,7 @@ def Choose_Player_Melee(Lead_1 , Follow_1 , target , acted, modifier, ending) :
 
 def Choose_Action_Melee(Lead_1 , Follow_1 , target , acted , acting, modifier, ending) :
     prt_txt(f"\n///{acting.name.upper()}///\nCHOOSE AN ACTION:\nA: FIGHT\n")
-    a1 = take_in("A")
+    a1 = take_in(["A"])
     if a1 == "A" :
         acting.action = acting.character_die()
     acted.append(acting)
@@ -242,9 +242,11 @@ def Choose_Action_Melee(Lead_1 , Follow_1 , target , acted , acting, modifier, e
 
 def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
     #TEST\\\\\\\\\\\\\
-    #print("BEGINNING Play_Turn")
-    #print("TEST melee, modifier >>> ", melee, modifier)
-    #print("TEST Lead_1, Follow_1.actions >>> ", Lead_1.action, Follow_1.action)
+    logger.info("BEGINNING Play_Turn")
+    logger.info(f"""
+    Lead_1.name/.action: {Lead_1.name} {Lead_1.action}
+    Follow_1.name/.action: {Follow_1.name} {Follow_1.action}
+    melee: {melee}\nmodifier: {modifier}""")
     #/////////////////
     action_lst = []
     for action in Lead_1.action, Follow_1.action:
@@ -259,7 +261,8 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                 force_melee = False
     #Force melee check
     if force_melee and melee == False:
-        #print("FORCE MELEE")
+        #TEST\\\\\\\\\\\\\\\\\
+        logger.info("FORCE MELEE")
         Choose_Player_Melee(Lead_1, Follow_1, target, [], modifier, ending)
 
 
@@ -323,9 +326,6 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                     if z in target_HP :
                         if len(target.HP) == 0 :
                             prt_txt(f"{target.name} IS DEAD!")
-                            #TEST\\\\\\\\\
-                            #print("TRIGGER END 1")
-                            #//////////////
                             loot_target(Lead_1, Follow_1, target, target.loot)
                             return end_seq(ending)
                         target.HP.remove(z)
@@ -337,7 +337,11 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                                 prt_txt(f"{target.name.upper()} ABSORBS THE DAMAGE FROM {Lead_1.name.upper()}'S SHOT, AND REGENERATES ONE HIT POINT!")    
                                 target_HP.append("M")
                         break
-            prt_txt(f"\n{target.name} HP: {target.HP}\n")
+            if len(target.HP) == 0:
+                prt_txt(f"\n{target.name.upper()} MAKES A FINAL LUNGE BEFORE COLLAPSING IN A HEAP ON THE GROUND!")
+            else:
+                prt_txt(f"\n{target.name} HP: {target.HP}\n")
+
 
         #Return fire check - both Lead_1 and Follow_1 use same return_fire bool var
         return_fire = False
@@ -353,7 +357,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                 #Force Field check
                 for item in Lead_1.inventory.values():
                     #TEST\\\\\\\\\\\\\\\
-                    #print("TRIGGER FORCE FIELD\nitem.name>>> ", item.name)
+                    logging.info("TRIGGER FORCEFIELD CHECK - LEAD")
                     #///////////////////
                     if item == "EMPTY":
                         pass
@@ -424,10 +428,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                 for z in target.HP :
                     if z in target_HP :
                         if len(target.HP) == 0 :
-                            prt_txt(f"{target.name} IS DEAD!")
-                            #TEST\\\\\\\\\
-                            #print("TRIGGER END 1")
-                            #//////////////
+                            prt_txt(f"\n{target.name} IS DEAD!\n")
                             loot_target(Lead_1, Follow_1, target, target.loot)
                             return end_seq(ending)
                         target.HP.remove(z)
@@ -453,7 +454,7 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                 #Force Field check
                 for item in Follow_1.inventory.values():
                     #TEST\\\\\\\\\\\\\\\
-                    #print("TRIGGER FORCE FIELD\nitem.name>>> ", item.name)
+                    logging.info("TRIGGER FORCEFIELD CHECK - FOLLOW")
                     #///////////////////
                     if item == "EMPTY":
                         pass
@@ -472,8 +473,12 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
    
 
     elif len(target.HP) > 0 and melee == True:
-         #TEST\\\\
-        #print("\nTEST L + F .action, target.hp >>>> " , Lead_1.action, Follow_1.action, target.HP)
+        #TEST\\\\
+        logger.info(f"""
+        Lead_1.action: {Lead_1.action}
+        Follow_1.action: {Follow_1.action}
+        target.HP: {target.HP}
+        """)
         #////////
         melee_result_lead = []
         if len(Lead_1.action) == 1:
@@ -498,11 +503,14 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                         pass
                 elif item.name == "Rusty Pipe":
                     #TEST\\\\\\\\\\\\\\\
-                    #print("RUSTY PIPE TRIGGER REROLL\nORIGINAL ROLL >>>> ", Lead_1.action, "\nNEW ROLL >>> " )
+                    logger.info(f"""
+                    RUSTY PIPE TRIGGER RE-ROLL
+                    Lead_1.action: {Lead_1.action}
+                    """)
                     #///////////////////
                     Lead_1.action = Lead_1.character_die()
                     #TEST CONT\\\\\
-                    #print(Lead_1.action)
+                    logger.info(f"Reroll character die\nLead_1.action: {Lead_1.action}")
                     #//////////////
                     if len(Lead_1.action) == 1:
                         if Lead_1.action in target.HP :
@@ -550,11 +558,14 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                     pass
                 elif item.name == "Rusty Pipe":
                     #TEST\\\\\\\\\\\\\\\
-                    #print("RUSTY PIPE TRIGGER REROLL\nORIGINAL ROLL >>>> ", Follow_1.action, "\nNEW ROLL >>> " )
+                    logger.info(f"""
+                    RUSTY PIPE TRIGGER RE-ROLL
+                    Follow_1.action: {Follow_1.action}
+                    """)
                     #///////////////////
                     Follow_1.action = Follow_1.character_die()
                     #TEST CONT\\\\\
-                    #print(Follow_1.action)
+                    logger.info(f"Reroll character die\nFollow_1.action: {Follow_1.action}")
                     #//////////////
                     if len(Follow_1.action) == 1:
                         if Follow_1.action in target.HP :
@@ -581,34 +592,32 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
         #/////// TARGET MELEE RETALIATION //////
 
         #TEST \\\\\\\
-        #print("TEST lead+follow melee reult list >>>>> ", melee_result_lead, melee_result_follow)
+        logger.info(f"""
+        melee_result_lead: {melee_result_lead}
+        melee_result_follow: {melee_result_follow}
+        """)
         #////////////
         if len(target.HP) == 0:
             prt_txt(f"{target.name.upper()} IS DEAD!")
-            #TEST\\\\\\\\\
-            #print("TRIGGER END 2")
-            #//////////////
             loot_target(Lead_1, Follow_1, target, target.loot)
             return end_seq(ending)
         else:
-            prt_txt(f"{target.name.upper()} HITS BACK!\n")
+            prt_txt(f"\n{target.name.upper()} HITS BACK!\n")
             #HIT BACK ON LEAD
             if "melee_dodge" not in melee_result_lead:
                 Lead_1.HP -= target.DMG_M
-                prt_txt(f"\n///{target.name.upper()} HITS BACK AND DOES {target.DMG_M} DAMAGE TO {Lead_1.name.upper()}")
+                prt_txt(f"\n///{target.name.upper()} HITS BACK AND DOES {target.DMG_M} DAMAGE TO {Lead_1.name.upper()}\n")
             #Forcefield Check
                 for item in Lead_1.inventory.values():
-                    #TEST\\\\\\\\\\\\\\\
-                    #print("TRIGGER FORCE FIELD\nitem.name>>> ", item.name)
-                    #///////////////////
                     if item == "EMPTY":
                         pass
                     elif item.name == "Force Field":
-                        prt_txt(f"{Lead_1.name.upper()} HAS A FORCEFIELD IN THEIR INVENTORY WHICH CAN BE USED TO NEGATE INCOMING DAMAGE. WOULD YOU LIKE TO USE IT NOW?\n\n[Y/N]\n")
+                        prt_txt(f"\n<<<{Lead_1.name.upper()} HAS A FORCEFIELD IN THEIR INVENTORY WHICH CAN BE USED TO NEGATE INCOMING DAMAGE>>>\nWOULD YOU LIKE TO USE IT NOW?\n\n[Y/N]\n")
                         use_force_field = take_in(['Y', 'N'])
                         if use_force_field == "Y":
                             Lead_1.remove_inventory(force_field)
                             Lead_1.HP += target.DMG_M
+                            prt_txt(f"\n{Lead_1.name.upper()} USES THE FORCEFIELD TO NEGATE {target.DMG_M} DAMAGE!\n")
                         elif use_force_field == "N":
                             pass    
             else:
@@ -617,20 +626,17 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
             #HIT BACK ON FOLLOW
             if "melee_dodge" not in melee_result_follow:
                 Follow_1.HP = Follow_1.HP - target.DMG_M
-                prt_txt(f"\n///{target.name} HITS BACK AND DOES {target.DMG_M} DAMAGE TO {Follow_1.name}")
+                prt_txt(f"\n///{target.name.upper()} HITS BACK AND DOES {target.DMG_M} DAMAGE TO {Follow_1.name}\n")
                 for item in Follow_1.inventory.values():
-                    #TEST\\\\\\\\\\\\\\\
-                    #print("TRIGGER FORCE FIELD\nitem.name>>> ", item.name)
-                    #///////////////////
                     if item == "EMPTY":
                         pass
                     elif item.name == "Force Field":
-                        prt_txt(f"{Follow_1.name.upper()} HAS A FORCEFIELD IN THEIR INVENTORY WHICH CAN BE USED TO NEGATE INCOMING DAMAGE. WOULD YOU LIKE TO USE IT NOW?\n\n[Y/N]\n")
+                        prt_txt(f"\n{Follow_1.name.upper()} HAS A FORCEFIELD IN THEIR INVENTORY WHICH CAN BE USED TO NEGATE INCOMING DAMAGE. WOULD YOU LIKE TO USE IT NOW?\n\n[Y/N]\n")
                         use_force_field = take_in(['Y','N'])
                         if use_force_field == "Y":
                             Follow_1.remove_inventory(force_field)
                             Lead_1.HP += target.DMG_M
-                            pass
+                            prt_txt(f"\n{Follow_1.name.upper()} USES THE FORCEFIELD TO NEGATE {target.DMG_M} DAMAGE!\n")
                         elif use_force_field == "N":
                             pass
             else:
@@ -640,9 +646,6 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
 
     if len(target.HP) == 0  :
         prt_txt(f"{target.name.upper()} IS DEAD")
-        #TEST\\\\\\\\\\\\
-        #print("TRIGGER END 3")
-        #////////////////
         loot_target(Lead_1, Follow_1, target, target.loot)
         return end_seq(ending)
     elif len(target.HP) > 0 :
@@ -666,9 +669,6 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                             flanker.weapon_choice = flanker.inventory.get(slot_choice)
                             shots = flanker.weapon_choice.rate_of_fire_1
                             flanker_action = []
-                            #TEST\\\\\\\\\\\\\\\\\
-                            #print(flanker.weapon_choice.name)
-                            #/////////////////////
                             while flanker.weapon_choice.ammo < 1 :
                                 prt_txt("CLICK CLICK CLICK... YOU'RE OUT OF AMMO! CHOOSE ANOTHER WEAPON, OR RELOAD\n")
                                 flanker.show_inventory()
@@ -697,9 +697,6 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                                     elif character_roll == 6 :
                                         flanker_action.append("miss")
                             elif flanker.weapon_choice.dmg_type == "energy":
-                                #TEST\\\\\\
-                                #print("TRIGGER==========================")
-                                #//////////
                                 for shot in range(0, shots) :
                                     character_roll = randint(1 , 6)
                                     flanker.weapon_choice.ammo = flanker.weapon_choice.ammo - shots
@@ -710,9 +707,6 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                                         flanker_action.append("overheat")
                                     elif character_roll == 6 :
                                         flanker_action.append("miss")
-                            #TEST\\\\\\\\\\\\\\\
-                            #print("TEST flanker_action++++++++++++", flanker_action)
-                            #///////////////////
                             for result in flanker_action :
                                 if result == "jam" :
                                     prt_txt(f"\n{flanker.name.upper()}'S WEAPON JAMS!\n")
@@ -733,9 +727,6 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                                             if z in target_HP :
                                                 if len(target.HP) == 0 :
                                                     prt_txt(f"{target.name} IS DEAD!")
-                                                    #TEST\\\\\\\\\\\\\
-                                                    #print("TRIGGER END 4")
-                                                    #/////////////////
                                                     loot_target(Lead_1, Follow_1, target, target.loot)
                                                     return end_seq(ending)
                                                 target.HP.remove(z)
@@ -784,9 +775,6 @@ def Play_Turn(Lead_1 , Follow_1 , target, melee, modifier, ending) :
                         Choose_Player_Ranged(Lead_1 , Follow_1 , target , [], modifier, ending)
                     else:
                         prt_txt(f"{target.name.upper()} IS DEAD")
-                        #TEST\\\\\\\\\\
-                        #print("TRIGGER END 5")
-                        #//////////////
                         loot_target(Lead_1, Follow_1, target, target.loot)
                         return end_seq(ending)        
         #//////// CLOSE COMBAT CHECK ////////

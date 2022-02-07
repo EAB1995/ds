@@ -36,20 +36,20 @@ Beside a slaughtered guard, a weapon locker has been smashed open. You load up o
     a1 = take_in(['1', '2'])
     if a1 == "1":
         abbot.add_inventory(slug_pistol_opener)
-        prt_txt("\nLT MILLER TAKES THE RAY GUN.")
+        prt_txt("\n\nLT MILLER TAKES THE RAY GUN.\n")
         miller.add_inventory(ray_gun_opener)
     elif a1 == "2":
         miller.add_inventory(slug_pistol_opener)
-        prt_txt("\nLT ABBOT TAKES THE RAY GUN.")
+        prt_txt("\n\nLT ABBOT TAKES THE RAY GUN.\n")
         abbot.add_inventory(ray_gun_opener)
    
-    prt_txt("""
+    prt_txt("""\n\n
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 You hear footsteps approaching; there is no time to lose. 
 You must find your ship at all costs. You steel yourselves before slipping away into the gloom...
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    """)
+    \n\n""")
     
 def seq_1(player_1, player_2):
     intermission(player_1, player_2)
@@ -98,7 +98,7 @@ The boxes appear to be secured with security shock-nodes...
                 count += 1
         percent = (round((count / 6) * 100, 0)) 
         prt_txt(f" {str(percent)}%")
-        prt_txt("\nARE YOU SURE YOU WANT TO CONTINUE? Y/N\n")
+        prt_txt("\n\nARE YOU SURE YOU WANT TO CONTINUE? Y/N\n")
         a2 = take_in(['Y', 'N'])
         if a2 == "N" :
            
@@ -118,7 +118,6 @@ You continue your journey into the depths of the station - time is of the essenc
                 seq_1_hack(miller)
             
 def seq_2(player_1, player_2):
-    #Below should be replaced by intermission() function
     intermission(player_1, player_2)
     
     prt_txt(f"""
@@ -217,8 +216,8 @@ CUNNING: {player_1_chance[0]}
 WISDOM:  {player_1_chance[1]}
 
 {player_2.name.upper()}'S CHANCES
-CUNNING: {player_2[0]}
-WISDOM:  {player_2[1]}
+CUNNING: {player_2_chance[0]}
+WISDOM:  {player_2_chance[1]}
     """)
     a2 = input(f"CHOOSE {player_1.name.upper()}'S ATTEMPT:\n[1] CUNNING\n[2] WISDOM\n--[")
     if a2 == "1":
@@ -350,7 +349,7 @@ HEAVY FOOTSTEPS ARE HEARD AS A LUMBERING MUTANT ENTERS THE CHAMBER TO CONFRONT T
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 def intermission(player_1, player_2):
-    prt_txt(f"CHOOSE A PLAYER TO LEAD THE GROUP TO THE NEXT AREA\n\n[1] {player_1.name.upper()}\n[2] {player_2.name.upper()}")
+    prt_txt(f"\n\n<<<CHOOSE A PLAYER TO LEAD THE GROUP TO THE NEXT AREA>>>\n\n[1] {player_1.name.upper()}\n[2] {player_2.name.upper()}")
     a1 = take_in(['1', '2'])
     if a1 == "1":
         Lead_1 = player_1
@@ -433,7 +432,7 @@ You peer in and see what you can salvage...
         while len(items) > 0:
             for item in items:
                 prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
-                prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
+                prt_txt(f"\n--[ABBOT [1]\n--[MILLER [2]")
                 a1 = take_in(['1', '2'])
                 if a1 == "1" :
                     abbot.add_inventory(item)
@@ -458,8 +457,8 @@ After gathering your items, you proceed into the depths of the station...
 You prise open several boxes to see what's inside...
 
 --[SALVAGE
--{items[0]}
--{items[1]}
+-{items[0].name}
+-{items[1].name}
 -
 -
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -467,7 +466,7 @@ You prise open several boxes to see what's inside...
         while len(items) > 0:
             for item in items:
                 prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
-                prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
+                prt_txt(f"\n\n--[ABBOT [1]\n--[MILLER [2]")
                 a1 = take_in(['1', '2'])
                 if a1 == "1" :
                     abbot.add_inventory(item)
@@ -486,7 +485,6 @@ After gathering your items, you proceed into the depths of the station...
     elif W_count == 0:
         acting.HP - 2
         prt_txt(f"\n{acting.name.upper()} FAILS TO BYPASS THE BOX'S SECURITY AND RECIEVES A LESS_THAN_LETHAL ELECTRIC SHOCK, LOSING 2 HP")
-
         
 def seq_2_steal(acting):
     character_roll = [acting.character_die()]
@@ -521,8 +519,8 @@ Some likely salvage catches their eye and they quickly retrieve it before return
         """)
         while len(items) > 0:
             for item in items:
-                prt_txt(f"ASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
-                prt_txt(f"--[ABBOT [1]\n--[MILLER [2]")
+                prt_txt(f"\nASSIGN A MEMBER OF THE CREW TO RECIEVE {item.name.upper()}")
+                prt_txt(f"\n--[ABBOT [1]\n--[MILLER [2]")
                 a1 = take_in(['1', '2'])
                 if a1 == "1" :
                     abbot.add_inventory(item)

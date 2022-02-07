@@ -1,10 +1,29 @@
 import random
 from time import *
-from ds_engine_nov_2021 import *
 from random import randint
+from ds_logging import *
 
 Players = ["Abbot" , "Miller"]
 
+#Duplicate of functions in ds_engine
+def prt_txt(text):
+    for i in text:
+        if logging.getLevelName(logger.level) == "WARNING":
+            if i is "/":
+                print(f'{i}', end='', flush=True)
+            else:
+                print(f'{i}', end='', flush=True)
+                sleep(0.05)
+        else:
+            print(f'{i}', end='', flush=True)
+            
+def take_in(accept):
+    choice = str(input("\n\n--[").upper())
+    if choice in accept:
+        return choice
+    else:        
+        prt_txt(f"INPUT NOT RECOGNISED.\nACCEPTED INPUTS: {' / '.join(accept)}")
+        take_in(accept)
 
 
 class Character_Class :    
@@ -33,7 +52,7 @@ class Character_Class :
         for slot , item in self.inventory.items() :
             if item == "EMPTY" :
                 self.inventory[slot] = add
-                print(f"\n{add.name.upper()} ADDED TO {self.name.upper()}'S INVENTORY")
+                prt_txt(f"\n{add.name.upper()} ADDED TO {self.name.upper()}'S INVENTORY")
                 break
     def remove_inventory(self , remove) :
         for slot, item in self.inventory.items() :
@@ -42,21 +61,21 @@ class Character_Class :
             elif item.name == remove.name :
                 self.inventory[slot] = "EMPTY"
     def show_inventory(self) :
-        print(f"\n{self.name.upper()}'s INVENTORY:")
+        prt_txt(f"\n{self.name.upper()}'s INVENTORY:")
         for slot , item in self.inventory.items() :
             capacity = 4
             if item == "EMPTY" :
-                print(f"\nSlot {slot} : //{item}//")
+                prt_txt(f"\nSlot {slot} : //{item}//")
             elif item.type == "weapon" :
-                print(f"\nSlot {slot} : //{item.name.upper()}// WEIGHT: {item.inv_slots} // AMMO COUNTER: {item.ammo}")
+                prt_txt(f"\nSlot {slot} : //{item.name.upper()}// WEIGHT: {item.inv_slots} // AMMO COUNTER: {item.ammo}")
             elif item.type == "item" :
-                print(f"\nSlot {slot} : //{item.name.upper()}// WEIGHT: {item.inv_slots} // {item.desc}")
+                prt_txt(f"\nSlot {slot} : //{item.name.upper()}// WEIGHT: {item.inv_slots} // {item.desc}")
         for item in self.inventory.values() :
             if item == "EMPTY" :
                 capacity += 0
             else :
                 capacity -= item.inv_slots
-        print("\nREMANING WEIGHT CAPACITY: {capacity}".format(capacity = capacity))
+        prt_txt("\nREMANING WEIGHT CAPACITY: {capacity}".format(capacity = capacity))
     def remaining_inventory(self):
         count = 0
         for i in self.inventory.values():
@@ -242,7 +261,7 @@ def loot_target(Lead_1, Follow_1, target, number):
 
     items = loot_gen(number)
     sleep(1)
-    print("""
+    prt_txt("""
                                  _____ _   _  ________  ____   __ ______ ___________ _____  ___ _____ ___________ 
                                 |  ___| \ | ||  ___|  \/  \ \ / / |  _  \  ___|  ___|  ___|/ _ \_   _|  ___|  _  \ 
                                 | |__ |  \| || |__ | .  . |\ V /  | | | | |__ | |_  | |__ / /_\ \| | | |__ | | | |
@@ -266,7 +285,9 @@ def loot_target(Lead_1, Follow_1, target, number):
                 items.remove(item)
                 item_roster.remove(item)
                 print(items)
+                return
             elif a1 == "2" :
                 miller.add_inventory(item)
                 items.remove(item)
                 item_roster.remove(item)
+                return
